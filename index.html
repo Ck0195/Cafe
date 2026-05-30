@@ -7,7 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;700;800&family=Syne:wght=700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #000000;
@@ -15,7 +15,7 @@
             --surface-mid: #121418;
             --surface-high: #1a1d24;
             --accent: #00d4ff;
-            --accent-glow: rgba(0, 212, 255, 0.15);
+            --accent-glow: rgba(0, 212, 255, 0.25);
             --text-primary: #ffffff;
             --text-secondary: #8e9aa8;
             --text-muted: #4a5563;
@@ -35,114 +35,89 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- PREMIUM LOGO SPLASH SCREEN --- */
+        /* --- LUXURY ANIMATED PRELOADER --- */
         #loader {
             position: fixed; 
             inset: 0; 
-            background: #000; 
+            background: var(--bg); 
             z-index: 9999;
             display: flex; 
             flex-direction: column;
             align-items: center; 
             justify-content: center;
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow: hidden;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        /* Animated radial background pulse */
-        #loader::before {
-            content: '';
-            position: absolute;
-            width: 600px; height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
-            animation: bgPulse 3s ease-in-out infinite;
-        }
-        @keyframes bgPulse {
-            0%, 100% { transform: scale(0.8); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 1; }
-        }
-
-        /* Outer spinning ring */
-        .splash-ring-outer {
-            position: relative;
-            width: 200px; height: 200px;
-            display: flex; align-items: center; justify-content: center;
-            animation: fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
-            opacity: 0;
-        }
-        @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
-
-        .splash-ring-outer svg.spinner-ring {
-            position: absolute;
-            inset: 0;
-            width: 100%; height: 100%;
-            animation: spinRing 8s linear infinite;
-        }
-        @keyframes spinRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* Inner badge */
-        .splash-badge {
-            width: 160px; height: 160px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #0d1117 0%, #1a1d24 100%);
-            border: 1px solid rgba(0,212,255,0.15);
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            gap: 6px;
-            box-shadow: 0 0 40px rgba(0,212,255,0.08), inset 0 1px 0 rgba(255,255,255,0.05);
-        }
-        .splash-badge svg.logo-icon {
-            width: 52px; height: 52px;
-            animation: iconGlow 2s ease-in-out infinite alternate;
-        }
-        @keyframes iconGlow {
-            from { filter: drop-shadow(0 0 6px rgba(0,212,255,0.4)); }
-            to   { filter: drop-shadow(0 0 18px rgba(0,212,255,0.9)); }
-        }
-        .splash-wordmark {
+        .loader-brand {
             font-family: var(--font-display);
-            font-size: 0.6rem;
+            font-size: 1.75rem;
             font-weight: 800;
-            letter-spacing: 5px;
-            color: rgba(255,255,255,0.9);
-            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: #fff;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, var(--accent), #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
         }
-        .splash-wordmark span { color: var(--accent); }
-
-        /* Tagline below badge */
-        .splash-tagline {
-            margin-top: 28px;
-            font-family: var(--font-sans);
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 4px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            animation: fadeInUp 0.6s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
-            opacity: 0;
-        }
-
-        /* Progress bar */
         .loader-bar {
-            margin-top: 48px;
-            width: 80px; height: 1px;
+            width: 100px;
+            height: 1px;
             background: var(--surface-high);
             position: relative;
             overflow: hidden;
             border-radius: 2px;
-            animation: fadeInUp 0.6s 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
-            opacity: 0;
         }
         .loader-progress {
             position: absolute;
             height: 100%;
             width: 40%;
             background: var(--accent);
-            box-shadow: 0 0 8px var(--accent);
             animation: slide 1.5s ease-in-out infinite;
         }
         @keyframes shine { to { background-position: 200% center; } }
         @keyframes slide { 0% { left: -40%; } 100% { left: 100%; } }
+
+        /* --- PREMIUM LOGO & EMBLEM CONFIGURATION --- */
+        .brand-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        .logo-emblem {
+            position: relative;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .emblem-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--text-primary);
+            border-radius: 50%;
+            box-sizing: border-box;
+            animation: spin-slow 12s linear infinite;
+        }
+        .emblem-core {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--accent);
+            transform: rotate(45deg);
+            box-shadow: 0 0 10px var(--accent-glow);
+            animation: pulse-glow 2s infinite alternate, spin-reverse 6s linear infinite;
+            box-sizing: border-box;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 5px var(--accent-glow); border-color: rgba(0, 212, 255, 0.6); }
+            100% { box-shadow: 0 0 20px var(--accent), inset 0 0 5px var(--accent); border-color: rgba(0, 212, 255, 1); }
+        }
+        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spin-reverse { from { transform: rotate(45deg); } to { transform: rotate(-315deg); } }
 
         /* --- MINIMALIST FLOATING NAVIGATION --- */
         header {
@@ -155,6 +130,11 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-subtle);
+            animation: slideDownNav 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        @keyframes slideDownNav {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         .nav-container {
             max-width: 1200px;
@@ -162,18 +142,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 24px;
+            padding: 14px 24px;
             box-sizing: border-box;
         }
-        .logo { 
+        .logo-text { 
             font-family: var(--font-display);
             font-weight: 800; 
-            font-size: 1.15rem; 
+            font-size: 1.1rem; 
             color: var(--text-primary); 
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
         }
-        .logo span { color: var(--accent); }
+        .logo-text span { color: var(--accent); }
         
         .bag-trigger { 
             cursor: pointer; 
@@ -187,43 +167,98 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .bag-trigger:hover {
             border-color: var(--border-active);
             background: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.1);
         }
+        .bag-trigger:active { transform: translateY(0); }
         .bag-trigger i { color: var(--accent); font-size: 0.85rem; }
-        #count { background: var(--accent); color: #000; padding: 1px 6px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; }
+        #count { 
+            background: var(--accent); 
+            color: #000; 
+            padding: 1px 6px; 
+            border-radius: 10px; 
+            font-size: 0.65rem; 
+            font-weight: 800; 
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .pulse-count { transform: scale(1.4); }
 
-        /* --- IMMERSIVE HERO CINEMATIC --- */
+        /* --- IMMERSIVE HERO CINEMATIC (WITH KEN BURNS) --- */
         .hero {
-            height: 55vh; 
+            height: 52vh; 
             display: flex; 
             align-items: flex-end; 
             padding: 40px 24px;
             position: relative;
-            background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 100%), 
-                        url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1200&q=80');
-            background-size: cover; 
-            background-position: center;
+            overflow: hidden;
             box-sizing: border-box;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=1200') center;
+            background-size: cover;
+            animation: kenBurns 20s ease-in-out infinite alternate;
+            z-index: 1;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.95) 100%);
+            z-index: 2;
         }
         .hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at top right, rgba(0, 212, 255, 0.1), transparent 60%);
+            background: radial-gradient(circle at top right, rgba(0, 212, 255, 0.15), transparent 60%);
             pointer-events: none;
+            z-index: 3;
         }
-        .hero-text { max-width: 1200px; margin: 0 auto; width: 100%; }
-        .hero-tag { color: var(--accent); font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 8px; display: block; }
-        .hero-text h1 { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; line-height: 1.05; margin: 0; letter-spacing: -1px; text-transform: uppercase; }
+        .hero-text { max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 4; }
+        .hero-tag { 
+            color: var(--accent); 
+            font-size: 0.7rem; 
+            font-weight: 700; 
+            letter-spacing: 4px; 
+            text-transform: uppercase; 
+            margin-bottom: 8px; 
+            display: block;
+            animation: fadeInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+        .hero-text h1 { 
+            font-family: var(--font-display); 
+            font-size: 2.5rem; 
+            font-weight: 800; 
+            line-height: 1.05; 
+            margin: 0; 
+            letter-spacing: -1px; 
+            text-transform: uppercase; 
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+        }
+
+        @keyframes kenBurns {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.12); }
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeInRight {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
 
         /* --- SEGMENTED FILTER MATRIX --- */
         .tabs-sticky-wrapper {
             position: sticky; 
-            top: 61px; 
+            top: 59px; 
             z-index: 900;
             background: rgba(0,0,0,0.85);
             backdrop-filter: blur(20px);
@@ -252,12 +287,19 @@
             font-weight: 700; 
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+        .tab:hover {
+            color: #fff;
+            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-1px);
         }
         .tab.active { background: var(--text-primary); color: var(--bg); border-color: var(--text-primary); }
 
-        /* --- ELEVATED GALERIE GRID --- */
+        /* --- ELEVATED GALERIE GRID & KINETIC CARDS --- */
         .menu-wrapper { max-width: 1200px; margin: 0 auto; padding: 24px; box-sizing: border-box; }
         .menu-grid { 
             display: grid; 
@@ -277,17 +319,25 @@
             overflow: hidden; 
             border: 1px solid var(--border-subtle); 
             opacity: 0; 
-            transform: translateY(20px);
+            transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 40, 0, 1);
             display: flex;
             flex-direction: column;
-            transition: border-color 0.4s, transform 0.4s;
+            transition: border-color 0.4s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
         }
-        .item-card.show { opacity: 1; transform: translateY(0); transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        .item-card:hover { border-color: rgba(255,255,255,0.1); }
+        .item-card.show { 
+            opacity: 1; 
+            transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); 
+        }
+        .item-card:hover { 
+            border-color: var(--border-active); 
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 212, 255, 0.12);
+        }
         
         .img-box { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--surface-mid); }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .item-card:hover .img-box img { transform: scale(1.06); }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .item-card:hover .img-box img { transform: scale(1.08); }
         
         .item-info { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; }
         .item-info h3 { margin: 0; font-size: 0.95rem; font-weight: 700; letter-spacing: -0.2px; color: var(--text-primary); }
@@ -307,16 +357,36 @@
             letter-spacing: 1px;
             width: 100%; 
             text-transform: uppercase;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .item-card:hover .add-btn { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 800; box-shadow: 0 4px 20px var(--accent-glow); }
+        .add-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        .item-card:hover .add-btn { 
+            background: var(--accent); 
+            color: #000; 
+            border-color: var(--accent); 
+            font-weight: 800; 
+            box-shadow: 0 4px 20px var(--accent-glow); 
+        }
+        .item-card:hover .add-btn::before {
+            left: 100%;
+        }
 
         /* --- PRESTIGE SLIDING DRAWERS --- */
         .panel-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            z-index: 1900; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            position: fixed; inset: 0; background: rgba(0,0,0,0); backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
+            z-index: 1900; pointer-events: none; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .panel-overlay.active { opacity: 1; pointer-events: auto; }
+        .panel-overlay.active { background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); pointer-events: auto; }
 
         .sliding-panel {
             position: fixed; bottom: 0; right: 0; left: 0; height: 85vh;
@@ -336,14 +406,14 @@
         
         .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
         .panel-header h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; letter-spacing: 1px; }
-        .close-icon { padding: 8px; font-size: 1.1rem; cursor: pointer; color: var(--text-secondary); transition: color 0.3s; }
-        .close-icon:hover { color: #fff; }
+        .close-icon { padding: 8px; font-size: 1.1rem; cursor: pointer; color: var(--text-secondary); transition: transform 0.3s, color 0.3s; }
+        .close-icon:hover { color: #fff; transform: rotate(90deg); }
 
         .panel-content { flex-grow: 1; overflow-y: auto; scrollbar-width: none; margin-bottom: 20px; }
         .panel-content::-webkit-scrollbar { display: none; }
 
-        textarea { width: 100%; background: var(--surface-mid); border: 1px solid var(--border-subtle); color: #fff; padding: 14px; border-radius: 12px; font-family: inherit; font-size: 0.8rem; box-sizing: border-box; resize: none; transition: border-color 0.3s; }
-        textarea:focus { outline: none; border-color: var(--border-active); }
+        textarea { width: 100%; background: var(--surface-mid); border: 1px solid var(--border-subtle); color: #fff; padding: 14px; border-radius: 12px; font-family: inherit; font-size: 0.8rem; box-sizing: border-box; resize: none; transition: all 0.3s; }
+        textarea:focus { outline: none; border-color: var(--border-active); background: var(--surface-high); }
 
         /* --- AUDIO NODE ENGINE LAYOUT --- */
         .section-tag { font-weight: 700; font-size: 0.65rem; color: var(--accent); letter-spacing: 2px; margin: 20px 0 8px; text-transform: uppercase; }
@@ -353,17 +423,19 @@
         @keyframes pulse-red { from { transform: scale(0.95); } to { transform: scale(1.05); } }
 
         /* --- SEAMLESS UPI ECOSYSTEM --- */
-        .upi-box { background: rgba(0, 212, 255, 0.02); border: 1px dashed var(--border-active); border-radius: 16px; padding: 20px; margin: 16px 0; text-align: center; display: none; }
-        .qr-placeholder { background: #fff; width: 170px; height: 170px; margin: 14px auto; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 10px; box-sizing: border-box; }
-        .qr-placeholder img { width: 100%; height: 100%; object-fit: contain; }
+        .upi-box { background: rgba(0, 212, 255, 0.02); border: 1px dashed var(--border-active); border-radius: 16px; padding: 20px; margin: 16px 0; text-align: center; display: none; animation: fadeInUp 0.4s ease both; }
+        .qr-placeholder { background: #fff; width: 220px; height: auto; min-height: 220px; margin: 14px auto; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 10px; box-sizing: border-box; box-shadow: 0 8px 25px rgba(0,0,0,0.5); }
+        .qr-placeholder img { width: 100%; height: auto; max-height: 100%; object-fit: contain; display: block; }
 
         /* --- SELECTION ARCHITECTURE --- */
         .option-group { margin-bottom: 24px; }
         .option-group label { display: block; font-size: 0.65rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 10px; letter-spacing: 1.5px; text-transform: uppercase; }
         .option-selectors { display: flex; flex-direction: column; gap: 8px; }
-        .selector { background: var(--surface-mid); border: 1px solid var(--border-subtle); color: var(--text-primary); padding: 12px 16px; border-radius: 12px; font-size: 0.8rem; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.25s; }
-        .selector.selected { background: rgba(255,255,255,0.06); border-color: #fff; font-weight: 600; }
-        .selector.selected::after { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--accent); font-size: 0.75rem; }
+        .selector { background: var(--surface-mid); border: 1px solid var(--border-subtle); color: var(--text-primary); padding: 12px 16px; border-radius: 12px; font-size: 0.8rem; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+        .selector:hover { background: var(--surface-high); border-color: rgba(255,255,255,0.15); transform: translateX(4px); }
+        .selector.selected { background: rgba(255,255,255,0.06); border-color: #fff; font-weight: 600; transform: translateX(4px); }
+        .selector.selected::after { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--accent); font-size: 0.75rem; animation: scaleIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes scaleIn { from { transform: scale(0); } to { transform: scale(1); } }
 
         /* --- PRESTIGE CTA INTERFACES --- */
         .panel-footer { border-top: 1px solid var(--border-subtle); padding-top: 16px; background: var(--surface-low); }
@@ -371,53 +443,18 @@
         .price-summary span:first-child { font-size: 0.75rem; letter-spacing: 1px; color: var(--text-secondary); text-transform: uppercase; }
         .price-summary span:last-child { font-size: 1.4rem; font-family: var(--font-sans); }
 
-        .action-btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; cursor: pointer; margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 10px; text-transform: uppercase; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .action-btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; cursor: pointer; margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 10px; text-transform: uppercase; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; }
         .pay-btn { background: #ffffff; color: #000000; }
-        .pay-btn:hover { background: rgba(255,255,255,0.9); transform: translateY(-1px); }
+        .pay-btn:hover { background: rgba(255,255,255,0.9); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,255,255,0.15); }
         .wa-btn { background: var(--accent); color: #000000; font-weight: 800; }
-        .wa-btn:hover { background: #00b4d8; transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); }
+        .wa-btn:hover { background: #00b4d8; transform: translateY(-2px); box-shadow: 0 4px 20px var(--accent-glow); }
+        .action-btn:active { transform: translateY(0); }
     </style>
 </head>
 <body>
 
 <div id="loader">
-    <div class="splash-ring-outer">
-        <svg class="spinner-ring" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="100" r="96" stroke="rgba(0,212,255,0.12)" stroke-width="1"/>
-            <circle cx="100" cy="100" r="96" stroke="url(#arcGrad)" stroke-width="1.5"
-                    stroke-dasharray="80 520" stroke-linecap="round"/>
-            <circle cx="100" cy="4"   r="2.5" fill="rgba(0,212,255,0.5)"/>
-            <circle cx="196" cy="100" r="2.5" fill="rgba(0,212,255,0.5)"/>
-            <circle cx="100" cy="196" r="2.5" fill="rgba(0,212,255,0.2)"/>
-            <circle cx="4"   cy="100" r="2.5" fill="rgba(0,212,255,0.2)"/>
-            <path id="ringArc" d="M 30,100 A 70,70 0 1,1 170,100" fill="none"/>
-            <text font-family="'Plus Jakarta Sans', sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" font-weight="700" letter-spacing="6">
-                <textPath href="#ringArc" startOffset="10%">✦ CRAFT COFFEE ✦ EST 2026 ✦ BENGALURU</textPath>
-            </text>
-            <defs>
-                <linearGradient id="arcGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#00d4ff" stop-opacity="0"/>
-                    <stop offset="50%" stop-color="#00d4ff"/>
-                    <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
-                </linearGradient>
-            </defs>
-        </svg>
-
-        <div class="splash-badge">
-            <svg class="logo-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18 12 Q19 8 18 4" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
-                <path d="M26 12 Q27 7 26 3" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round" opacity="0.9"/>
-                <path d="M34 12 Q35 8 34 4" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
-                <path d="M10 16 L14 42 Q14 44 16 44 L36 44 Q38 44 38 42 L42 16 Z" fill="none" stroke="#00d4ff" stroke-width="1.8" stroke-linejoin="round"/>
-                <rect x="8" y="14" width="36" height="4" rx="2" fill="none" stroke="#00d4ff" stroke-width="1.8"/>
-                <path d="M38 22 Q48 22 48 30 Q48 38 38 38" fill="none" stroke="#00d4ff" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M14 22 L40 22" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
-            </svg>
-            <div class="splash-wordmark">Neon <span>&</span> Bean</div>
-        </div>
-    </div>
-
-    <div class="splash-tagline">Haute Couture Coffee</div>
+    <div class="loader-brand">NEON & BEAN</div>
     <div class="loader-bar"><div class="loader-progress"></div></div>
 </div>
 
@@ -425,7 +462,13 @@
 
 <header>
     <div class="nav-container">
-        <div class="logo">Neon <span>&</span> Bean</div>
+        <div class="brand-wrapper" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <div class="logo-emblem">
+                <div class="emblem-ring"></div>
+                <div class="emblem-core"></div>
+            </div>
+            <div class="logo-text">Neon <span>&</span> Bean</div>
+        </div>
         <div class="bag-trigger" onclick="togglePanel('cart-panel')">
             <i class="fas fa-shopping-bag"></i> BAG <span id="count">0</span>
         </div>
@@ -433,6 +476,8 @@
 </header>
 
 <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
     <div class="hero-text">
         <span class="hero-tag">EST 2026 / Bengaluru</span>
         <h1>Premium<br>Craft Coffee</h1>
@@ -441,11 +486,9 @@
 
 <div class="tabs-sticky-wrapper">
     <div class="tabs-container">
-        <button class="tab active" onclick="renderMenu('all', this)">All Collections</button>
-        <button class="tab" onclick="renderMenu('coffee', this)">Signature Coffee</button>
-        <button class="tab" onclick="renderMenu('drinks', this)">Cold Drinks</button>
-        <button class="tab" onclick="renderMenu('food', this)">Artisanal Food</button>
-        <button class="tab" onclick="renderMenu('snacks', this)">Snacks & Bites</button>
+        <button class="tab active" onclick="changeCategoryFilter('all', this)">All Collections</button>
+        <button class="tab" onclick="changeCategoryFilter('coffee', this)">Elixir Drinks</button>
+        <button class="tab" onclick="changeCategoryFilter('food', this)">Artisanal Food</button>
     </div>
 </div>
 
@@ -488,7 +531,7 @@
         
         <div id="upi-container" class="upi-box">
             <p style="font-weight: 700; font-size: 0.8rem; margin: 0; letter-spacing: 1px;">INSTANT ENCRYPTED UPI SETTLEMENT</p>
-            <p style="font-size: 0.65rem; color: var(--text-secondary); margin: 4px 0 12px;">Scan dynamically generated matrix with any authorized UPI app</p>
+            <p style="font-size: 0.65rem; color: var(--text-secondary); margin: 4px 0 12px;">Scan with any authorized UPI app</p>
             <div class="qr-placeholder" id="qr-target">
                 <span style="color: #000; font-size: 0.7rem; font-weight: 500;">Generating Secure Payload...</span>
             </div>
@@ -511,43 +554,19 @@
     const BUSINESS_NAME = "Neon and Bean Coffee"; 
 
     const menu = [
-        /* ── SIGNATURE COFFEE ── */
-        { cat: 'coffee', name: 'Nitro Cold Brew', price: 220.00, desc: 'Ultra-smooth nitrogen-infused premium cold brew with a velvety, frothy head.', img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80', customizable: true },
-        { cat: 'coffee', name: 'Charcoal Latte', price: 240.00, desc: 'Detox activated charcoal paired with pure Madagascar vanilla bean extract.', img: 'https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?auto=format&fit=crop&w=600&q=80', customizable: true },
-        { cat: 'coffee', name: 'Cloud Latte', price: 260.00, desc: 'Signature espresso blanketed under dense whipped velvet cloud foam.', img: 'https://images.unsplash.com/photo-1570968915860-54d5c301fc9f?auto=format&fit=crop&w=600&q=80', customizable: true },
-        { cat: 'coffee', name: 'Caramel Macchiato', price: 280.00, desc: 'Freshly steamed milk with rich vanilla-flavoured syrup, espresso, and buttery caramel drizzle.', img: 'https://images.unsplash.com/photo-1485808191679-5f86510bd9a0?auto=format&fit=crop&w=600&q=80', customizable: true },
-        { cat: 'coffee', name: 'White Chocolate Mocha', price: 290.00, desc: 'Rich espresso with dreamy white chocolate sauce, steamed milk, and whipped cream.', img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=600&q=80', customizable: true },
-        { cat: 'coffee', name: 'Pumpkin Spice Latte', price: 310.00, desc: 'Espresso with pumpkin, cinnamon, nutmeg and clove — a legendary seasonal icon.', img: 'https://images.unsplash.com/photo-1572286258217-215da10ee4c0?auto=format&fit=crop&w=600&q=80', customizable: true },
-        { cat: 'coffee', name: 'Flat White', price: 230.00, desc: 'Ristretto espresso shots over velvety steamed whole milk, Australian-style.', img: 'https://images.unsplash.com/photo-1577968897866-be8441db7a67?auto=format&fit=crop&w=600&q=80', customizable: true },
-        { cat: 'coffee', name: 'Honey Oat Latte', price: 270.00, desc: 'Espresso sweetened with honey blend, finished with oat milk and honey drizzle.', img: 'https://images.unsplash.com/photo-1514432324607-a07d9f4a7083?auto=format&fit=crop&w=600&q=80', customizable: true },
-        { cat: 'coffee', name: 'Iced Brown Sugar Oat Shaken Espresso', price: 320.00, desc: 'Shaken espresso with brown sugar syrup and oat milk over ice — bold and balanced.', img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80', customizable: true },
-        { cat: 'coffee', name: 'Cortado', price: 200.00, desc: 'Equal parts bold espresso and silky warm milk — a precision balance of strength.', img: 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80', customizable: false },
-
-        /* ── COLD DRINKS & REFRESHERS ── */
-        { cat: 'drinks', name: 'Strawberry Açaí Refresher', price: 250.00, desc: 'Sweet strawberry flavours, açaí notes, and ice — the iconic "Pink Drink" experience.', img: 'https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'drinks', name: 'Mango Dragonfruit Refresher', price: 260.00, desc: 'Tropical mango and dragonfruit with freeze-dried fruit pieces over ice.', img: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'drinks', name: 'Matcha Green Tea Latte', price: 270.00, desc: 'Ceremonial-grade Japanese matcha whisked with steamed oat milk. Earthy perfection.', img: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80', customizable: true },
-        { cat: 'drinks', name: 'Vanilla Bean Frappuccino', price: 310.00, desc: 'A creamy blend of vanilla bean powder, milk and ice, topped with whipped cream.', img: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'drinks', name: 'Caramel Frappuccino', price: 330.00, desc: 'Coffee blended with rich caramel syrup, milk and ice — finished with buttery caramel drizzle.', img: 'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'drinks', name: 'Mocha Cookie Crumble Frappuccino', price: 350.00, desc: 'Coffee frappuccino with mocha sauce, cookie crumbles, whipped cream and chocolate drizzle.', img: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'drinks', name: 'Iced Passion Tango Tea', price: 190.00, desc: 'Hibiscus, lemongrass, and apple fruit blend over ice — vivid magenta, zero caffeine.', img: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'drinks', name: 'Royal English Breakfast Tea', price: 160.00, desc: 'A bold, full-bodied black tea blend with a brisk, refreshing character.', img: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80', customizable: false },
-
-        /* ── ARTISANAL FOOD ── */
-        { cat: 'food', name: 'Truffle Avocado Toast', price: 380.00, desc: 'Toasted organic sourdough base mounted with fresh white alba truffle oil.', img: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'food', name: 'Miso Donut', price: 160.00, desc: 'Artisanal laminated brioche glazed with hand-turned miso caramel.', img: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'food', name: 'Wild Mushrooms On Toast', price: 320.00, desc: 'Sautéed forest mushrooms finished on warm dynamic pan brioche.', img: 'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'food', name: 'Spinach & Feta Wrap', price: 280.00, desc: 'Cage-free egg whites, spinach, feta cheese and sun-dried tomatoes in a flour tortilla.', img: 'https://images.unsplash.com/photo-1626700051175-6518c4793f4f?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'food', name: 'Bacon & Gruyère Egg Bites', price: 310.00, desc: 'Sous vide egg bites with aged Gruyère and smoked bacon — silky, cloud-like texture.', img: 'https://images.unsplash.com/photo-1525351326368-efbb5cb6814d?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'food', name: 'Smoked Salmon Bagel', price: 390.00, desc: 'House-baked sesame bagel with wild-caught smoked salmon, cream cheese and capers.', img: 'https://images.unsplash.com/photo-1541532713592-79a0317b6b77?auto=format&fit=crop&w=600&q=80', customizable: false },
-
-        /* ── SNACKS & BITES ── */
-        { cat: 'snacks', name: 'Butter Croissant', price: 120.00, desc: 'Classic French laminated butter croissant — shatteringly flaky, warm and golden.', img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'snacks', name: 'Chocolate Chip Cookie', price: 100.00, desc: 'Crisp edges, chewy centre, packed with semi-sweet Belgian chocolate chips.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'snacks', name: 'Banana Walnut Loaf', price: 140.00, desc: 'Moist banana bread studded with toasted California walnuts and dark caramel swirls.', img: 'https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'snacks', name: 'Blueberry Muffin', price: 130.00, desc: 'Domed top, fluffy crumb, loaded with wild blueberries and a crumb streusel crown.', img: 'https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'snacks', name: 'Almond Biscotti', price: 90.00, desc: 'Twice-baked Italian almond biscotti, ideal for dunking in your espresso.', img: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80', customizable: false },
-        { cat: 'snacks', name: 'Marshmallow Dream Bar', price: 110.00, desc: 'Gooey marshmallow and chocolate layered over a buttery graham cracker base.', img: 'https://images.unsplash.com/photo-1581798459219-318e76aecc7b?auto=format&fit=crop&w=600&q=80', customizable: false },
+        // --- COFFEE DRINKS ---
+        { cat: 'coffee', name: 'Nitro Cold Brew', price: 220.00, desc: 'Ultra-smooth nitrogen infused premium single-origin cold brew coffee.', imgUrl: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=600', customizable: true },
+        { cat: 'coffee', name: 'Charcoal Latte', price: 240.00, desc: 'Detox activated charcoal paired with pure Madagascar vanilla bean extract.', imgUrl: 'https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&q=80&w=600', customizable: true },
+        { cat: 'coffee', name: 'Pistachio Rose Pour', price: 280.00, desc: 'Slow dripped single origin blonde roast infused with real crushed Turkish pistachios.', imgUrl: 'https://images.unsplash.com/photo-1497515114629-f71d768fd07c?auto=format&fit=crop&q=80&w=600', customizable: true },
+        { cat: 'coffee', name: 'Spanish Cortado', price: 190.00, desc: 'Equal parts precision ristretto espresso shot and warm sweet condensed milk.', imgUrl: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=600', customizable: false },
+        { cat: 'coffee', name: 'Iced Matcha Elixir', price: 290.00, desc: 'Ceremonial grade Japanese Uji matcha whisked with absolute vanilla bean orchid infusion.', imgUrl: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&q=80&w=600', customizable: true },
+        
+        // --- ARTISANAL FOOD ---
+        { cat: 'food', name: 'Miso Caramel Donut', price: 160.00, desc: 'Artisanal laminated brioche dough glazed with hand-turned savory miso caramel.', imgUrl: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=600', customizable: false },
+        { cat: 'food', name: 'Wild Mushroom Brioche', price: 320.00, desc: 'Sautéed local forest mushrooms finished on a warm cloud pan brioche square.', imgUrl: 'https://images.unsplash.com/photo-1608039829572-78524f79c4c7?auto=format&fit=crop&q=80&w=600', customizable: false },
+        { cat: 'food', name: 'Smoked Salmon Bagel', price: 440.00, desc: 'Toasted zero-carb charcoal bagel layer, premium Atlantic salmon, dill cheese spray.', imgUrl: 'https://images.unsplash.com/photo-1541214113241-21578d2d9b62?auto=format&fit=crop&q=80&w=600', customizable: false },
+        { cat: 'food', name: 'Saffron Almond Croissant', price: 210.00, desc: 'Twice-baked flaky pastry filled with fresh Kashmiri saffron almond frangipane.', imgUrl: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=600', customizable: false },
+        { cat: 'food', name: 'Burrata Sun-Dried Tartine', price: 390.00, desc: 'Creamy local burrata ball over slow roasted sun-dried tomatoes on sourdough crisp.', imgUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=600', customizable: false }
     ];
 
     const customizationsData = {
@@ -558,6 +577,7 @@
     let cart = [];
     let currentCustomizingItem = null;
     let selectedCustomizations = { milk: 'Regular Milk', sweetness: 'Normal Sweet' };
+    let activeFilter = 'all';
     
     let mediaRecorder = null;
     let audioChunks = [];
@@ -568,26 +588,37 @@
     window.addEventListener('load', () => {
         setTimeout(() => {
             const loader = document.getElementById('loader');
-            loader.style.opacity = '0';
-            setTimeout(() => loader.style.display = 'none', 800);
-            renderMenu('all');
-        }, 2200);
+            if(loader) {
+                loader.style.opacity = '0';
+                loader.style.transform = 'scale(1.05)';
+                setTimeout(() => loader.style.display = 'none', 600);
+            }
+            renderMenuGrid('all');
+        }, 800);
     });
 
-    function renderMenu(category, btn) {
+    window.changeCategoryFilter = function(category, btn) {
         if(btn) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
         }
+        activeFilter = category;
+        window.renderMenuGrid(category);
+    }
+
+    window.renderMenuGrid = function(category) {
         const container = document.getElementById('menu-container');
+        if(!container) return;
+        
         container.innerHTML = '';
-        const items = category === 'all' ? menu : menu.filter(i => i.cat === category);
+        const targetCategory = category || activeFilter;
+        const items = targetCategory === 'all' ? menu : menu.filter(i => i.cat === targetCategory);
         
         items.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'item-card';
             card.innerHTML = `
-                <div class="img-box"><img src="${item.img}"></div>
+                <div class="img-box"><img src="${item.imgUrl}" alt="${item.name}"></div>
                 <div class="item-info">
                     <h3>${item.name}</h3>
                     <p>${item.desc}</p>
@@ -597,15 +628,19 @@
                     </div>
                 </div>`;
             container.appendChild(card);
-            setTimeout(() => card.classList.add('show'), index * 60);
+            
+            // Staggered item presentation sequence
+            setTimeout(() => {
+                card.classList.add('show');
+            }, index * 60);
         });
     }
 
-    function handleAddItemClick(name) {
+    window.handleAddItemClick = function(name) {
         const item = menu.find(i => i.name === name);
-        if (item.customizable) {
+        if (item && item.customizable) {
             openCustomizationPanel(item);
-        } else {
+        } else if (item) {
             addToCart(item.name, item.price, {});
         }
     }
@@ -648,7 +683,7 @@
         };
     }
 
-    function selectOption(group, value, price, element) {
+    window.selectOption = function(group, value, price, element) {
         element.parentNode.querySelectorAll('.selector').forEach(el => el.classList.remove('selected'));
         element.classList.add('selected');
         selectedCustomizations[group] = value;
@@ -669,7 +704,14 @@
 
     function addToCart(name, price, mods) {
         cart.push({name, price, mods});
-        document.getElementById('count').innerText = cart.length;
+        
+        const countBadge = document.getElementById('count');
+        countBadge.innerText = cart.length;
+        
+        // Dynamic pop-pulse response
+        countBadge.classList.add('pulse-count');
+        setTimeout(() => countBadge.classList.remove('pulse-count'), 250);
+
         updateUI();
         togglePanel('cart-panel');
         if (window.navigator.vibrate) window.navigator.vibrate(25);
@@ -684,53 +726,53 @@
 
         const container = document.getElementById('cart-items');
         if(cart.length === 0) {
-            container.innerHTML = `<p style="color:var(--text-secondary); text-align:center; font-size:0.8rem; padding:40px 0;">Bag curated is current empty.</p>`;
+            container.innerHTML = `<p style="color:var(--text-secondary); text-align:center; font-size:0.8rem; padding:40px 0;">Bag curated is currently empty.</p>`;
             return;
         }
 
         container.innerHTML = cart.map((i, idx) => {
             const modString = Object.values(i.mods).length > 0 ? Object.values(i.mods).join(' / ') : '';
             return `
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:0.85rem; background:var(--surface-mid); padding:16px; border-radius:14px; border:1px solid var(--border-subtle)">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:0.85rem; background:var(--surface-mid); padding:16px; border-radius:14px; border:1px solid var(--border-subtle); animation: fadeInUp 0.4s ease both;">
                 <div>
                     <div style="font-weight:700; color:#fff;">${i.name}</div>
                     ${modString ? `<div style="font-size:0.65rem; color:var(--accent); font-weight:600; text-transform:uppercase; margin-top:2px; letter-spacing:0.5px;">${modString}</div>` : ''}
                 </div>
                 <div style="display:flex; align-items:center; gap:16px;">
                     <span style="font-weight:700; color:#fff;">₹${i.price.toFixed(2)}</span>
-                    <i class="fas fa-trash-alt" onclick="removeFromCart(${idx})" style="color:var(--text-muted); cursor:pointer; font-size:0.85rem; transition:color 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='var(--text-muted)'"></i>
+                    <i class="fas fa-trash-alt" onclick="removeFromCart(${idx})" style="color:var(--text-muted); cursor:pointer; font-size:0.85rem; transition:color 0.2s; padding: 4px;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='var(--text-muted)'"></i>
                 </div>
             </div>`;
         }).join('');
     }
 
-    function removeFromCart(index) {
+    window.removeFromCart = function(index) {
         cart.splice(index, 1);
         document.getElementById('count').innerText = cart.length;
         updateUI();
     }
 
-    function togglePanel(panelId) {
+    window.togglePanel = function(panelId) {
         const overlay = document.getElementById('panel-overlay');
         const targetPanel = document.getElementById(panelId);
         const isActive = targetPanel.classList.contains('active');
 
-        document.querySelectorAll('.sliding-panel').forEach(p => p.classList.remove('active'));
-        
         if(!isActive) {
+            document.querySelectorAll('.sliding-panel').forEach(p => p.classList.remove('active'));
             targetPanel.classList.add('active');
             overlay.classList.add('active');
         } else {
+            targetPanel.classList.remove('active');
             overlay.classList.remove('active');
         }
     }
 
-    function closeAllPanels() {
+    window.closeAllPanels = function() {
         document.getElementById('panel-overlay').classList.remove('active');
         document.querySelectorAll('.sliding-panel').forEach(p => p.classList.remove('active'));
     }
 
-    async function toggleRecording() {
+    window.toggleRecording = async function() {
         const micBtn = document.getElementById('mic-control');
         const statusText = document.getElementById('voice-status');
         const playback = document.getElementById('audio-playback');
@@ -763,7 +805,7 @@
         }
     }
 
-    function generateUPICode() {
+    window.generateUPICode = function() {
         if(cart.length === 0) return alert("Your curated selection sequence is empty.");
         
         const upiBox = document.getElementById('upi-container');
@@ -771,11 +813,9 @@
         const upiMeta = document.getElementById('upi-meta');
         
         const cleanedAmount = localTotal.toFixed(2);
-        const refNote = encodeURIComponent(`Order Neon Bean`);
         
-        const upiString = `upi://pay?pa=${MERCHANT_UPI_ID}&pn=${encodeURIComponent(BUSINESS_NAME)}&am=${cleanedAmount}&cu=INR&tn=${refNote}`;
-        
-        qrTarget.innerHTML = `<img src="https://qrickit.com/api/qr/q_jpg.php?d=${encodeURIComponent(upiString)}&addtext=&txtcolor=000000&fgdcolor=000000&bgdcolor=FFFFFF&qrsize=150" alt="UPI QR Code">`;
+        // Encoded to safely parse the filename space
+        qrTarget.innerHTML = `<img src="fam%20.jpeg" alt="UPI QR Code">`;
         upiMeta.innerText = `STATEMENT DUE: ₹${cleanedAmount}`;
         
         upiBox.style.display = "block";
@@ -784,7 +824,7 @@
         upiBox.scrollIntoView({ behavior: 'smooth' });
     }
 
-    function checkout() {
+    window.checkout = function() {
         if(cart.length === 0) return alert("Curated secure matrix is empty.");
         
         const notes = document.getElementById('notes').value.trim();
